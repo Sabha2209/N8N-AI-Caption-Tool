@@ -1,0 +1,286 @@
+{
+  "name": "AI_caption_generated",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1q358xXmUK5Idq7f4nOOV5P62pHTphHiK34eUVyBtqjw",
+          "mode": "list",
+          "cachedResultName": "AI_caption_generateion",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1q358xXmUK5Idq7f4nOOV5P62pHTphHiK34eUVyBtqjw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1q358xXmUK5Idq7f4nOOV5P62pHTphHiK34eUVyBtqjw/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        -16
+      ],
+      "id": "428ac9c1-299e-47b7-be46-992fb261b67e",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "IZ6AJyotkYoQoSSG",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional LinkedIn content creator. Create an engaging LinkedIn post about the following \ntopic: {{ $json['AI prompt'] }}. The post should be professional, include relevant hashtags, and be optimized for \nLinkedIn engagement. Keep it concise and impactful (around 150-200 words)."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -496,
+        -16
+      ],
+      "id": "0a89ca63-666b-4415-85ec-787f9a737f58",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "2tYwT3WNJFQXBv4S",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional Instagram content creator. Create an engaging Instagram caption about the \nfollowing topic:{{ $('Google Sheets Trigger').item.json['AI prompt'] }} . The caption should be visually appealing, include relevant emojis, and \nuse popular Instagram hashtags. Keep it concise and impactful (around 100-150 words)."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -112,
+        -16
+      ],
+      "id": "d44c113b-b2c7-49b0-8266-438cfb533d51",
+      "name": "Message a model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "2tYwT3WNJFQXBv4S",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional Facebook content creator. Create an engaging Facebook post about the following \ntopic: {{ $('Google Sheets Trigger').item.json['AI prompt'] }}. The post should be conversational, engaging, and optimized for Facebook's \naudience. Include relevant emojis and hashtags. Keep it around 100-150 words."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        272,
+        -16
+      ],
+      "id": "e7c6067c-9d1e-4bcc-8d13-d7f047b28222",
+      "name": "Message a model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "2tYwT3WNJFQXBv4S",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1q358xXmUK5Idq7f4nOOV5P62pHTphHiK34eUVyBtqjw",
+          "mode": "list",
+          "cachedResultName": "AI_caption_generateion",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1q358xXmUK5Idq7f4nOOV5P62pHTphHiK34eUVyBtqjw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1q358xXmUK5Idq7f4nOOV5P62pHTphHiK34eUVyBtqjw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "LinkedIn": "={{ $('Message a model').item.json.message.content }}",
+            "Instagram": "={{ $('Message a model1').item.json.message.content }}",
+            "Facebook": "={{ $('Message a model2').item.json.message.content }}",
+            "AI prompt": "={{ $('Google Sheets Trigger').item.json['AI prompt'] }}"
+          },
+          "matchingColumns": [
+            "AI prompt"
+          ],
+          "schema": [
+            {
+              "id": "AI prompt",
+              "displayName": "AI prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "LinkedIn",
+              "displayName": "LinkedIn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Instagram",
+              "displayName": "Instagram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Facebook",
+              "displayName": "Facebook",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        -16
+      ],
+      "id": "2ca7fa23-ca5e-4e55-b90c-0ab756c16acd",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5oPM4QQfTgvUI7oa",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Message a model2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model2": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0ee3afc7-e8be-4224-a0fc-2dcbd328a6aa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0408736a4dd0b8a94207d49c6fe0dc62f63c8e6739f388f6407e2549f517f19b"
+  },
+  "id": "jX8IHfGZIechSuC0",
+  "tags": []
+}

@@ -1,2 +1,3 @@
 # N8N-AI-Caption-Tool
-A workflow automation tool using n8n and AI to generate social media captions.
+A workflow built using the n8n AI tool that automates tasks by combining AI decision-making and automation logic.
+Includes form submission, email automation, and intelligent response generation.
